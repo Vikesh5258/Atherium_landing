@@ -181,7 +181,7 @@ export function Tokenomics() {
               >
                 Token Allocation
               </h3>
-              <div className="flex flex-col sm:flex-row gap-6 items-center">
+              <div className="flex flex-col sm:flex-row gap-6 items-center min-h-[80%]">
                 <div style={{ flexShrink: 0 }}>
                   <PieChart width={200} height={200}>
                     <Pie

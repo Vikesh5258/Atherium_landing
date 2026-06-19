@@ -1,4 +1,5 @@
 import { CheckCircle2, Clock } from "lucide-react";
+import { useState } from "react";
 
 const milestones = [
   {
@@ -60,6 +61,8 @@ const milestones = [
 ];
 
 export function Roadmap() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <section
       id="roadmap"
@@ -122,22 +125,29 @@ export function Roadmap() {
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 relative z-10 items-stretch">
-            {milestones.map((m, i) => (
-              <div key={i} className="flex flex-col items-center">
+            {milestones.map((m, i) => {
+              const isActive = hoveredIndex !== null ? hoveredIndex === i : m.status === "active";
+              return (
+              <div 
+                key={i} 
+                className="flex flex-col items-center"
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
                 <div className="flex flex-col items-center mb-5">
                   <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center mb-2"
+                    className="w-8 h-8 rounded-full flex items-center justify-center mb-2 transition-all duration-300"
                     style={{
-                      background: m.status === "active" ? "#145A32" : "#FFFFFF",
+                      background: isActive ? "#145A32" : "#FFFFFF",
                       border:
-                        m.status === "active"
+                        isActive
                           ? "2px solid #1E8449"
                           : "2px solid #E5E7EB",
                       boxShadow:
-                        m.status === "active" ? "0 0 16px rgba(20,90,50,0.3)" : "none",
+                        isActive ? "0 0 16px rgba(20,90,50,0.3)" : "none",
                     }}
                   >
-                    {m.status === "active" ? (
+                    {isActive ? (
                       <CheckCircle2 size={14} style={{ color: "#FFFFFF" }} />
                     ) : (
                       <Clock size={13} style={{ color: "#D1D5DB" }} />
@@ -146,10 +156,11 @@ export function Roadmap() {
                   <span
                     style={{
                       fontFamily: "Inter, sans-serif",
-                      color: m.status === "active" ? "#145A32" : "#9CA3AF",
+                      color: isActive ? "#145A32" : "#9CA3AF",
                       fontSize: "0.75rem",
                       fontWeight: 700,
                       letterSpacing: "0.06em",
+                      transition: "color 0.3s ease",
                     }}
                   >
                     {m.year}
@@ -159,13 +170,14 @@ export function Roadmap() {
                 <div
                   className="w-full rounded-2xl p-5 transition-all duration-300 flex-1"
                   style={{
-                    background: m.status === "active" ? "#F0F7F3" : "#FAFAFA",
+                    background: isActive ? "#F0F7F3" : "#FAFAFA",
                     border:
-                      m.status === "active"
+                      isActive
                         ? "1px solid rgba(20,90,50,0.25)"
                         : "1px solid #E5E7EB",
                     boxShadow:
-                      m.status === "active" ? "0 4px 20px rgba(20,90,50,0.1)" : "none",
+                      isActive ? "0 4px 20px rgba(20,90,50,0.1)" : "none",
+                    transform: isActive ? "translateY(-4px)" : "translateY(0)",
                   }}
                 >
                   <h3
@@ -183,19 +195,20 @@ export function Roadmap() {
                     {m.items.map((item, j) => (
                       <li key={j} className="flex items-start gap-2">
                         <span
-                          className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5"
+                          className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5 transition-colors duration-300"
                           style={{
                             background:
-                              m.status === "active" ? "#1E8449" : "#D1D5DB",
+                              isActive ? "#1E8449" : "#D1D5DB",
                           }}
                         />
                         <span
                           style={{
                             fontFamily: "Inter, sans-serif",
                             color:
-                              m.status === "active" ? "#374151" : "#9CA3AF",
+                              isActive ? "#374151" : "#9CA3AF",
                             fontSize: "0.78rem",
                             lineHeight: 1.5,
+                            transition: "color 0.3s ease",
                           }}
                         >
                           {item}
@@ -205,7 +218,7 @@ export function Roadmap() {
                   </ul>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </div>

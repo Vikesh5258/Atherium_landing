@@ -43,7 +43,13 @@ const socials = [
 export function Footer() {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id.toLowerCase());
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      const path = id.toLowerCase() === "home" ? "/" : `/${id.toLowerCase()}`;
+      if (window.location.pathname !== path) {
+        window.history.pushState(null, "", `${path}${window.location.search}`);
+      }
+    }
   };
 
   return (

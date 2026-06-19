@@ -33,7 +33,7 @@ export function FAQ() {
       className="relative py-28"
       style={{ background: "#F7FAF8" }}
     >
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <div
             className="inline-block px-3 py-1 rounded-full mb-5"

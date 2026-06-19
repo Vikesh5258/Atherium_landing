@@ -149,7 +149,13 @@ function GlassCard({
 export function Hero() {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      const path = id === "home" ? "/" : `/${id}`;
+      if (window.location.pathname !== path) {
+        window.history.pushState(null, "", `${path}${window.location.search}`);
+      }
+    }
   };
 
   return (
@@ -232,7 +238,7 @@ export function Hero() {
             <div className="flex flex-wrap gap-4 mb-12">
               <button
                 onClick={() => scrollTo("ico")}
-                className="flex items-center gap-2 transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
+                className="flex items-center gap-2 transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 cursor-pointer"
                 style={{
                   background: "linear-gradient(135deg, #145A32 0%, #1E8449 100%)",
                   color: "#FFFFFF",
@@ -248,7 +254,7 @@ export function Hero() {
               </button>
               <button
                 onClick={() => scrollTo("cta")}
-                className="flex items-center gap-2 transition-all duration-200 hover:bg-gray-50"
+                className="flex items-center gap-2 transition-all duration-200 hover:bg-gray-50 cursor-pointer"
                 style={{
                   background: "#FFFFFF",
                   color: "#1E1E1E",

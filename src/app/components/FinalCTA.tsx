@@ -3,7 +3,13 @@ import { ArrowRight, Download } from "lucide-react";
 export function FinalCTA() {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      const path = id === "home" ? "/" : `/${id}`;
+      if (window.location.pathname !== path) {
+        window.history.pushState(null, "", `${path}${window.location.search}`);
+      }
+    }
   };
 
   return (
@@ -73,7 +79,7 @@ export function FinalCTA() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={() => scrollTo("ico")}
-            className="flex items-center justify-center gap-2 transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
+            className="flex items-center justify-center gap-2 transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 cursor-pointer"
             style={{
               background: "linear-gradient(135deg, #145A32 0%, #1E8449 100%)",
               color: "#FFFFFF",
@@ -88,7 +94,7 @@ export function FinalCTA() {
             Join ICO <ArrowRight size={18} />
           </button>
           <button
-            className="flex items-center justify-center gap-2 transition-all duration-200 hover:bg-white"
+            className="flex items-center justify-center gap-2 transition-all duration-200 hover:bg-white cursor-pointer"
             style={{
               background: "rgba(255,255,255,0.7)",
               color: "#1E1E1E",

@@ -50,7 +50,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="relative py-12"
+      className="relative py-24"
       style={{ background: "#FFFFFF" }}
     >
       <div className="relative z-10 max-w-7xl mx-auto px-6">

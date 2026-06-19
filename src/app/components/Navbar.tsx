@@ -21,9 +21,40 @@ export function Navbar() {
     { label: "Whitepaper", id: "cta" },
   ];
 
+  useEffect(() => {
+    const sectionIds = ["home", "about", "tokenomics", "roadmap", "faq", "cta", "ico"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            const path = id === "home" ? "/" : `/${id}`;
+            if (window.location.pathname !== path) {
+              window.history.replaceState(null, "", `${path}${window.location.search}`);
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      const path = id === "home" ? "/" : `/${id}`;
+      if (window.location.pathname !== path) {
+        window.history.pushState(null, "", `${path}${window.location.search}`);
+      }
+    }
     setMenuOpen(false);
   };
 
@@ -72,7 +103,7 @@ export function Navbar() {
         <div className="hidden md:block">
           <button
             onClick={() => scrollTo("ico")}
-            className="transition-all duration-200 hover:opacity-90 focus:outline-none"
+            className="transition-all duration-200 hover:opacity-90 focus:outline-none cursor-pointer"
             style={{
               background: "linear-gradient(135deg, #145A32 0%, #1E8449 100%)",
               color: "#FFFFFF",
@@ -99,9 +130,9 @@ export function Navbar() {
 
       {menuOpen && (
         <div
-          className="md:hidden px-6 pb-6 pt-2"
+          className="md:hidden px-6 pb-6 pt-2 min-h-screen"
           style={{
-            background: "rgba(255,255,255,0.97)",
+            background: "white",
             borderTop: "1px solid rgba(20,90,50,0.1)",
           }}
         >
