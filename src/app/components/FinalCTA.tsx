@@ -78,7 +78,7 @@ export function FinalCTA() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
-            onClick={() => scrollTo("ico")}
+            onClick={() => window.location.href = "https://athcoins.in/ico"}
             className="flex items-center justify-center gap-2 transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 cursor-pointer"
             style={{
               background: "linear-gradient(135deg, #145A32 0%, #1E8449 100%)",

@@ -102,7 +102,7 @@ export function Navbar() {
 
         <div className="hidden md:block">
           <button
-            onClick={() => scrollTo("ico")}
+            onClick={() => window.location.href = "https://athcoins.in/ico"}
             className="transition-all duration-200 hover:opacity-90 focus:outline-none cursor-pointer"
             style={{
               background: "linear-gradient(135deg, #145A32 0%, #1E8449 100%)",
@@ -152,7 +152,7 @@ export function Navbar() {
             </button>
           ))}
           <button
-            onClick={() => scrollTo("ico")}
+            onClick={() => window.location.href = "https://athcoins.in/ico"}
             className="mt-4 w-full py-2.5 rounded-lg focus:outline-none"
             style={{
               background: "linear-gradient(135deg, #145A32 0%, #1E8449 100%)",
