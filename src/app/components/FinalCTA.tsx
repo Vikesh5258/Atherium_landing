@@ -5,10 +5,9 @@ export function FinalCTA() {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
-      const path = id === "home" ? "/" : `/${id}`;
-      if (window.location.pathname !== path) {
-        window.history.pushState(null, "", `${path}${window.location.search}`);
-      }
+      const hash = id === "home" ? "" : `#${id}`;
+      const newUrl = `${window.location.pathname}${hash}${window.location.search}`;
+      window.history.pushState(null, "", newUrl);
     }
   };
 

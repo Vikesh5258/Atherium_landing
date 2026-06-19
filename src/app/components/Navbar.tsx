@@ -28,9 +28,11 @@ export function Navbar() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const id = entry.target.id;
-            const path = id === "home" ? "/" : `/${id}`;
-            if (window.location.pathname !== path) {
-              window.history.replaceState(null, "", `${path}${window.location.search}`);
+            const hash = id === "home" ? "" : `#${id}`;
+            const currentHash = window.location.hash;
+            if (currentHash !== hash) {
+              const newUrl = `${window.location.pathname}${hash}${window.location.search}`;
+              window.history.replaceState(null, "", newUrl);
             }
           }
         });
@@ -50,10 +52,9 @@ export function Navbar() {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
-      const path = id === "home" ? "/" : `/${id}`;
-      if (window.location.pathname !== path) {
-        window.history.pushState(null, "", `${path}${window.location.search}`);
-      }
+      const hash = id === "home" ? "" : `#${id}`;
+      const newUrl = `${window.location.pathname}${hash}${window.location.search}`;
+      window.history.pushState(null, "", newUrl);
     }
     setMenuOpen(false);
   };
