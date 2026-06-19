@@ -21,40 +21,10 @@ export function Navbar() {
     { label: "Whitepaper", id: "cta" },
   ];
 
-  useEffect(() => {
-    const sectionIds = ["home", "about", "tokenomics", "roadmap", "faq", "cta", "ico"];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            const hash = id === "home" ? "" : `#${id}`;
-            const currentHash = window.location.hash;
-            if (currentHash !== hash) {
-              const newUrl = `${window.location.pathname}${hash}${window.location.search}`;
-              window.history.replaceState(null, "", newUrl);
-            }
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
-      const hash = id === "home" ? "" : `#${id}`;
-      const newUrl = `${window.location.pathname}${hash}${window.location.search}`;
-      window.history.pushState(null, "", newUrl);
     }
     setMenuOpen(false);
   };
