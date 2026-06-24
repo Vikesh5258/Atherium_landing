@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
@@ -9,17 +11,24 @@ import { Statistics } from "./components/Statistics";
 import { FAQ } from "./components/FAQ";
 import { FinalCTA } from "./components/FinalCTA";
 import { Footer } from "./components/Footer";
+import { TermsConditions } from "./components/pages/terms-conditions";
+import { PrivacyPolicy } from "./components/pages/privacy-policy";
 
-export default function App() {
+function Home() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
+      }
+    }
+  }, [location]);
+
   return (
-    <div
-      style={{
-        fontFamily: "Inter, sans-serif",
-        background: "#FFFFFF",
-        minHeight: "100vh",
-      }}
-    >
-      <Navbar />
+    <>
       <Hero />
       <About />
       <WhyAtherium />
@@ -28,7 +37,28 @@ export default function App() {
       <Statistics />
       <FAQ />
       <FinalCTA />
-      <Footer />
-    </div>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <div
+        style={{
+          fontFamily: "Inter, sans-serif",
+          background: "#FFFFFF",
+          minHeight: "100vh",
+        }}
+      >
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }

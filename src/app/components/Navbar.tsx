@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router";
 import { Menu, X } from "lucide-react";
 import athLogo from "../../imports/Final.png";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
@@ -22,9 +25,14 @@ export function Navbar() {
   ];
 
   const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+    if (location.pathname !== "/") {
+      navigate(`/#${id}`);
+    } else {
+      window.history.pushState(null, "", `/#${id}`);
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     }
     setMenuOpen(false);
   };

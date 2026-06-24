@@ -1,20 +1,6 @@
+import { Link, useNavigate, useLocation } from "react-router";
 import athLogo from "../../imports/Final.png";
 
-function XIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.258 5.632 5.906-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
-
-function TelegramIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-    </svg>
-  );
-}
 
 function DiscordIcon() {
   return (
@@ -24,27 +10,53 @@ function DiscordIcon() {
   );
 }
 
-function LinkedInIcon() {
+function InstagramIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 7.75 4zm8.75 1a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
     </svg>
   );
 }
 
+function FacebookIcon() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.008 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.017 1.792-4.686 4.533-4.686 1.313 0 2.686.236 2.686.236v2.963h-1.514c-1.491 0-1.956.929-1.956 1.882v2.265h3.328l-.532 3.49h-2.796V24C19.612 23.081 24 18.092 24 12.073z" />
+    </svg>
+  );
+}
+
+
 const quickLinks = ["About", "Tokenomics", "Roadmap", "FAQ"];
 const socials = [
-  { icon: <XIcon />, label: "X (Twitter)" },
-  { icon: <TelegramIcon />, label: "Telegram" },
-  { icon: <DiscordIcon />, label: "Discord" },
-  { icon: <LinkedInIcon />, label: "LinkedIn" },
+  { icon: <DiscordIcon />, label: "Discord", href: "https://discord.gg/u4QekhjuB" },
+  { icon: <InstagramIcon />, label: "Instagram", href: "/" },
+  { icon: <FacebookIcon />, label: "Facebook", href: "https://www.facebook.com/profile.php?id=61590976505747" },
 ];
 
 export function Footer() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const scrollTo = (id: string) => {
-    const el = document.getElementById(id.toLowerCase());
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+    if (location.pathname !== "/") {
+      navigate(`/#${id.toLowerCase()}`);
+    } else {
+      window.history.pushState(null, "", `/#${id.toLowerCase()}`);
+      const el = document.getElementById(id.toLowerCase());
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -128,8 +140,11 @@ export function Footer() {
             </h4>
             <div className="flex gap-3 flex-wrap mb-6">
               {socials.map((s) => (
-                <button
+                <a
                   key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   title={s.label}
                   className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 focus:outline-none"
                   style={{
@@ -138,20 +153,20 @@ export function Footer() {
                     color: "#6B7280",
                   }}
                   onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLButtonElement;
+                    const el = e.currentTarget as HTMLAnchorElement;
                     el.style.background = "#145A32";
                     el.style.borderColor = "#145A32";
                     el.style.color = "#FFFFFF";
                   }}
                   onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLButtonElement;
+                    const el = e.currentTarget as HTMLAnchorElement;
                     el.style.background = "#F3F4F6";
                     el.style.borderColor = "#E5E7EB";
                     el.style.color = "#6B7280";
                   }}
                 >
                   {s.icon}
-                </button>
+                </a>
               ))}
             </div>
 
@@ -191,25 +206,73 @@ export function Footer() {
             © 2026 Atherium. All Rights Reserved.
           </p>
           <div className="flex gap-6">
-            {["Privacy Policy", "Terms of Service", "Risk Disclosure"].map((item) => (
-              <button
-                key={item}
-                className="focus:outline-none transition-colors duration-200"
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  color: "#9CA3AF",
-                  fontSize: "0.78rem",
-                }}
-                onMouseEnter={(e) =>
-                  ((e.target as HTMLButtonElement).style.color = "#145A32")
-                }
-                onMouseLeave={(e) =>
-                  ((e.target as HTMLButtonElement).style.color = "#9CA3AF")
-                }
-              >
-                {item}
-              </button>
-            ))}
+            {["Privacy Policy", "Terms of Service"].map((item) => {
+              const isTerms = item === "Terms of Service";
+              const isPrivacyPolicy = item === "Privacy Policy";
+              if (isTerms) {
+                return (
+                  <Link
+                    key={item}
+                    to="/terms-conditions"
+                    className="focus:outline-none transition-colors duration-200"
+                    style={{
+                      fontFamily: "Inter, sans-serif",
+                      color: "#9CA3AF",
+                      fontSize: "0.78rem",
+                    }}
+                    onMouseEnter={(e) =>
+                      ((e.target as HTMLElement).style.color = "#145A32")
+                    }
+                    onMouseLeave={(e) =>
+                      ((e.target as HTMLElement).style.color = "#9CA3AF")
+                    }
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              if (isPrivacyPolicy) {
+                return (
+                  <Link
+                    key={item}
+                    to="/privacy-policy"
+                    className="focus:outline-none transition-colors duration-200"
+                    style={{
+                      fontFamily: "Inter, sans-serif",
+                      color: "#9CA3AF",
+                      fontSize: "0.78rem",
+                    }}
+                    onMouseEnter={(e) =>
+                      ((e.target as HTMLElement).style.color = "#145A32")
+                    }
+                    onMouseLeave={(e) =>
+                      ((e.target as HTMLElement).style.color = "#9CA3AF")
+                    }
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              return (
+                <button
+                  key={item}
+                  className="focus:outline-none transition-colors duration-200"
+                  style={{
+                    fontFamily: "Inter, sans-serif",
+                    color: "#9CA3AF",
+                    fontSize: "0.78rem",
+                  }}
+                  onMouseEnter={(e) =>
+                    ((e.target as HTMLButtonElement).style.color = "#145A32")
+                  }
+                  onMouseLeave={(e) =>
+                    ((e.target as HTMLButtonElement).style.color = "#9CA3AF")
+                  }
+                >
+                  {item}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
