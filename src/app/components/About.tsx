@@ -183,7 +183,7 @@ export function About() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-1  md:grid-cols-3 gap-4">
               {[
                 { icon: <Layers size={16} />, label: "Tokenized Assets", value: "100+" },
                 { icon: <Globe size={16} />, label: "Countries", value: "50+" },
